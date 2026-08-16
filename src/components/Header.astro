@@ -2,11 +2,12 @@
 import { Image } from 'astro:assets';
 import OSGeoUK from '../assets/OSGeoUK.svg';
 import { NAV_LINKS, SITE_TITLE } from '../consts';
+import { withBase } from '../url';
 ---
 
 <header class="site-header">
 	<div class="osgeo-container">
-		<a href="/" class="site-logo">
+		<a href={withBase('/')} class="site-logo">
 			<Image src={OSGeoUK} alt={SITE_TITLE} width="150" />
 		</a>
 
@@ -19,7 +20,7 @@ import { NAV_LINKS, SITE_TITLE } from '../consts';
 		</button>
 
 		<nav class="site-nav" id="site-nav">
-			{NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+			{NAV_LINKS.map((link) => <a href={withBase(link.href)}>{link.label}</a>)}
 		</nav>
 	</div>
 </header>

@@ -2,6 +2,8 @@
 // for the earlier issues, as PDFs. Both are served verbatim from /newsletter/ by the
 // `newsletter-archive` integration in astro.config.mjs; the HTML is only read here
 // for card metadata, and the PDFs are enumerated without importing them.
+import { withBase } from './url';
+
 const pages = import.meta.glob('./assets/newsletter/*.html', {
 	query: '?raw',
 	import: 'default',
@@ -47,7 +49,7 @@ export const newsletterIssues: NewsletterIssue[] = [
 		const date = issueDate(name);
 
 		return {
-			href: `/newsletter/${name}.html`,
+			href: withBase(`/newsletter/${name}.html`),
 			date,
 			title: issueTitle(date),
 			description: meta(html, 'og:description') ?? '',
@@ -61,7 +63,7 @@ export const newsletterIssues: NewsletterIssue[] = [
 		const date = issueDate(file.replace(/\.pdf$/, ''));
 
 		return {
-			href: `/newsletter/${file}`,
+			href: withBase(`/newsletter/${file}`),
 			date,
 			title: issueTitle(date),
 			description: 'Newsletter issue as a PDF download.',

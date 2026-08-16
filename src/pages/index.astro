@@ -4,6 +4,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
 import { newsletterIssues } from '../newsletter';
+import { withBase } from '../url';
 
 // The three most recent issues from /newsletter.
 const newsletter = newsletterIssues.slice(0, 3);
@@ -143,7 +144,7 @@ const projects = [
 			}
 
 			<p class="newsletter-more">
-				<a href="/newsletter" class="link-more">View all issues &rarr;</a>
+				<a href={withBase('/newsletter')} class="link-more">View all issues &rarr;</a>
 			</p>
 		</div>
 	</section>
@@ -200,7 +201,7 @@ const projects = [
 				}
 			</div>
 			<p class="events-more">
-				<a href="/blog" class="link-more">View all events &rarr;</a>
+				<a href={withBase('/blog')} class="link-more">View all events &rarr;</a>
 			</p>
 		</div>
 	</section>

@@ -9,6 +9,8 @@ import { defineConfig } from 'astro/config';
 
 const NEWSLETTER_DIR = new URL('./src/assets/newsletter/', import.meta.url);
 
+const BASE = '/osgeo-astro';
+
 const MIME_TYPES = {
 	'.html': 'text/html; charset=utf-8',
 	'.css': 'text/css; charset=utf-8',
@@ -34,7 +36,7 @@ function newsletterArchive() {
 		name: 'newsletter-archive',
 		hooks: {
 			'astro:server:setup': ({ server }) => {
-				server.middlewares.use('/newsletter', async (req, res, next) => {
+				server.middlewares.use(`${BASE}/newsletter`, async (req, res, next) => {
 					const path = decodeURIComponent((req.url ?? '/').split('?')[0]);
 					// Only intercept the issues and their asset folders; the
 					// /newsletter index route stays with Astro.
@@ -64,6 +66,9 @@ function newsletterArchive() {
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	site: 'https://dbauszus-glx.github.io',
+	// The site is served from a project subpath on GitHub Pages. Drop `base`
+	// (and set `site` to the domain) if it ever moves to its own domain.
+	base: BASE,
 	integrations: [mdx(), sitemap(), newsletterArchive()],
 });
