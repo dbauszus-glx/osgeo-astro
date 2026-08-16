@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import OSGeoUK from '../assets/OSGeoUK.svg';
+import { NAV_LINKS, SITE_TITLE } from '../consts';
+---
+
+<header class="site-header">
+	<div class="osgeo-container">
+		<a href="/" class="site-logo">
+			<Image src={OSGeoUK} alt={SITE_TITLE} width="150" />
+		</a>
+
+		<button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+				<line x1="3" y1="6" x2="21" y2="6"></line>
+				<line x1="3" y1="12" x2="21" y2="12"></line>
+				<line x1="3" y1="18" x2="21" y2="18"></line>
+			</svg>
+		</button>
+
+		<nav class="site-nav" id="site-nav">
+			{NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+		</nav>
+	</div>
+</header>
+
+<script>
+	// Mobile nav toggle
+	const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+	const nav = document.querySelector<HTMLElement>('.site-nav');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = nav?.classList.toggle('is-open') ?? false;
+		toggle.setAttribute('aria-expanded', String(isOpen));
+	});
+
+	// Close the mobile nav once a link is followed
+	nav?.querySelectorAll('a').forEach((link) => {
+		link.addEventListener('click', () => {
+			nav.classList.remove('is-open');
+			toggle?.setAttribute('aria-expanded', 'false');
+		});
+	});
+</script>

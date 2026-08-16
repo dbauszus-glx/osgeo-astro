@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { newsletterIssues as issues } from '../../newsletter';
+---
+
+<BaseLayout
+	title={`Newsletter — ${SITE_TITLE}`}
+	description="Past issues of the OSGeo:UK newsletter."
+>
+	<h1 class="section-title">Newsletter</h1>
+	<p class="lead">
+		Chapter and community news from across the UK, delivered a few times a year. Browse past issues
+		below.
+	</p>
+
+	<div class="card-grid">
+		{
+			issues.map((issue) => (
+				<article class="osgeo-card issue-card">
+					<a href={issue.href} class="issue-link">
+						{issue.image ? (
+							<img src={issue.image} alt="" class="issue-thumb" loading="lazy" />
+						) : (
+							<span class="issue-thumb issue-thumb-pdf">PDF</span>
+						)}
+						<h2 class="issue-title">{issue.title}</h2>
+					</a>
+					<p class="issue-date">
+						<span class="issue-format">{issue.format}</span>
+					</p>
+					{issue.description && <p class="issue-description">{issue.description}</p>}
+					<a href={issue.href} class="link-more">
+						{issue.cta} &rarr;
+					</a>
+				</article>
+			))
+		}
+	</div>
+</BaseLayout>
+
+<style>
+	.lead {
+		font-size: var(--osgeo-text-body-lg);
+		margin-bottom: var(--osgeo-space-6);
+	}
+
+	.issue-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--osgeo-space-2);
+	}
+
+	.issue-link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.issue-thumb {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+		object-position: top;
+		border-radius: var(--osgeo-radius-sm);
+		margin-bottom: var(--osgeo-space-3);
+		background: var(--osgeo-neutral-100);
+	}
+
+	.issue-title {
+		font-size: var(--osgeo-text-h3);
+		margin: 0;
+	}
+
+	.issue-thumb-pdf {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--osgeo-neutral-600);
+		font-size: var(--osgeo-text-h2);
+		font-weight: var(--osgeo-weight-bold);
+		letter-spacing: 0.1em;
+	}
+
+	.issue-date {
+		display: flex;
+		align-items: center;
+		gap: var(--osgeo-space-2);
+		margin: 0;
+		color: var(--osgeo-neutral-600);
+		font-size: var(--osgeo-text-caption);
+	}
+
+	.issue-format {
+		padding: 0 var(--osgeo-space-2);
+		border: 1px solid var(--osgeo-neutral-300);
+		border-radius: var(--osgeo-radius-pill);
+		font-size: var(--osgeo-text-overline);
+		text-transform: uppercase;
+	}
+
+	.issue-description {
+		margin: 0;
+		flex: 1;
+	}
+</style>

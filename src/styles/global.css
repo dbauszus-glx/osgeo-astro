@@ -1,0 +1,580 @@
+/*
+  Global styles for the OSGeo:UK chapter site.
+
+  Layout and styling are ported from osgeo-chapter-template.html:
+  - Design tokens and component classes live in osgeo-tokens.css
+  - This file holds the base element styles, the chapter-specific layout
+    classes (header, hero, wedges, cards, footer) and the blog prose styles
+    inherited from the Astro blog starter.
+*/
+
+@import './osgeo-tokens.css';
+
+:root {
+	/* Legacy aliases kept so the blog components (BlogPost, blog index,
+	   FormattedDate) keep working, remapped onto the OSGeo palette. */
+	--accent: var(--osgeo-accent-accessible);
+	--accent-dark: var(--osgeo-primary);
+	--black: 0, 58, 64;
+	--gray: 117, 117, 117;
+	--gray-light: 234, 234, 234;
+	--gray-dark: 33, 33, 33;
+	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+	--box-shadow:
+		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
+		0 16px 32px rgba(var(--gray), 33%);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   BASE STYLES
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: var(--osgeo-text-body);
+	line-height: var(--osgeo-leading-relaxed);
+	scroll-behavior: smooth;
+	/* Keep anchor targets clear of the sticky header. */
+	scroll-padding-top: calc(var(--osgeo-header-height) + var(--osgeo-space-3));
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: var(--osgeo-font-body);
+	font-size: var(--osgeo-text-body);
+	color: var(--osgeo-fg);
+	background-color: var(--osgeo-bg);
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--osgeo-font-heading);
+	font-weight: var(--osgeo-weight-bold);
+	line-height: var(--osgeo-leading-snug);
+	margin-top: 0;
+	margin-bottom: var(--osgeo-space-2);
+	color: var(--osgeo-primary);
+}
+
+h1 {
+	font-size: var(--osgeo-text-h1);
+}
+h2 {
+	font-size: var(--osgeo-text-h2);
+}
+h3 {
+	font-size: var(--osgeo-text-h3);
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: var(--osgeo-space-3);
+}
+
+a {
+	color: var(--osgeo-accent-accessible);
+	text-decoration: none;
+	transition: color var(--osgeo-duration-fast) var(--osgeo-ease);
+}
+
+a:hover {
+	color: var(--osgeo-primary);
+	text-decoration: underline;
+}
+
+strong,
+b {
+	font-weight: var(--osgeo-weight-bold);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+code {
+	font-family: var(--osgeo-font-mono);
+	padding: 2px 5px;
+	background-color: var(--osgeo-neutral-100);
+	border-radius: var(--osgeo-radius-sm);
+}
+
+pre {
+	padding: var(--osgeo-space-4);
+	border-radius: var(--osgeo-radius-md);
+}
+
+pre > code {
+	all: unset;
+}
+
+blockquote {
+	border-left: 4px solid var(--osgeo-accent);
+	padding: 0 0 0 20px;
+	margin: 0;
+	font-size: 1.333em;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid var(--osgeo-border);
+}
+
+table {
+	width: 100%;
+}
+
+textarea {
+	width: 100%;
+}
+
+textarea,
+input {
+	font-family: inherit;
+	font-size: var(--osgeo-text-body-lg);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   SITE HEADER / NAVIGATION
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+.site-header {
+	background: var(--osgeo-bg);
+	border-bottom: 1px solid var(--osgeo-border);
+	padding: var(--osgeo-space-3) 0;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+.site-header .osgeo-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--osgeo-space-4);
+	position: relative;
+}
+
+.site-logo {
+	display: flex;
+	align-items: center;
+	gap: var(--osgeo-space-2);
+	text-decoration: none;
+	color: var(--osgeo-primary);
+}
+
+.site-logo img {
+	height: 48px;
+	width: auto;
+}
+
+.site-logo:hover {
+	text-decoration: none;
+}
+
+.site-logo-text {
+	font-family: var(--osgeo-font-heading);
+	font-weight: var(--osgeo-weight-bold);
+	font-size: var(--osgeo-text-h3);
+}
+
+.site-logo-text span {
+	color: var(--osgeo-accent);
+}
+
+.site-nav {
+	display: flex;
+	gap: var(--osgeo-space-4);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.site-nav a {
+	color: var(--osgeo-primary);
+	font-weight: var(--osgeo-weight-bold);
+	font-size: var(--osgeo-text-body);
+}
+
+.site-nav a:hover,
+.site-nav a.active {
+	color: var(--osgeo-accent);
+	text-decoration: none;
+}
+
+.nav-toggle {
+	display: none;
+	background: none;
+	border: none;
+	color: var(--osgeo-primary);
+	cursor: pointer;
+	padding: var(--osgeo-space-2);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   HERO
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+.hero {
+	position: relative;
+	min-height: 500px;
+	display: flex;
+	align-items: center;
+	/* Drop a landscape photo at public/hero.jpg to replace the gradient, or set
+	   --hero-image on the section: style="--hero-image: url('/hero.jpg')" */
+	background-image: var(
+		--hero-image,
+		linear-gradient(135deg, var(--osgeo-primary) 0%, var(--osgeo-primary-dark) 100%)
+	);
+	background-size: cover;
+	background-position: center;
+}
+
+.hero::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: var(--osgeo-overlay);
+}
+
+.hero-content {
+	position: relative;
+	z-index: 1;
+	color: var(--osgeo-fg-inverted);
+	max-width: 600px;
+}
+
+.hero h1 {
+	color: inherit;
+	font-size: var(--osgeo-text-display);
+	margin-bottom: var(--osgeo-space-3);
+}
+
+.hero p {
+	font-size: var(--osgeo-text-body-lg);
+	margin-bottom: var(--osgeo-space-4);
+	opacity: 0.95;
+}
+
+.hero-buttons {
+	display: flex;
+	gap: var(--osgeo-space-3);
+	flex-wrap: wrap;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   ANGULAR DIVIDERS (signature OSGeo element)
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+.wedge-divider {
+	height: 60px;
+	background: linear-gradient(to bottom right, var(--osgeo-primary) 49.5%, var(--osgeo-bg) 50%);
+}
+
+.wedge-divider-up {
+	background: linear-gradient(to top right, var(--osgeo-primary) 49.5%, var(--osgeo-bg) 50%);
+}
+
+.wedge-divider-white {
+	background: linear-gradient(
+		to bottom right,
+		var(--osgeo-bg) 49.5%,
+		var(--osgeo-surface-elevated) 50%
+	);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   SECTIONS, CARDS, NEWS
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+.section-title {
+	margin-bottom: var(--osgeo-space-5);
+}
+
+.card-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: var(--osgeo-space-5);
+}
+
+.two-col {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--osgeo-space-5);
+}
+
+.news-item {
+	display: flex;
+	gap: var(--osgeo-space-3);
+	margin-bottom: var(--osgeo-space-4);
+}
+
+.news-item-content h3 {
+	font-size: var(--osgeo-text-h3);
+	margin-bottom: var(--osgeo-space-1);
+}
+
+.news-item-content h3 a {
+	color: var(--osgeo-primary);
+}
+
+.news-item-content h3 a:hover {
+	color: var(--osgeo-accent);
+}
+
+.news-item-date {
+	color: var(--osgeo-fg-muted);
+	font-size: var(--osgeo-text-caption);
+	margin-bottom: 0;
+}
+
+.link-more {
+	font-weight: var(--osgeo-weight-bold);
+}
+
+.project-card {
+	text-align: center;
+	padding: var(--osgeo-space-4);
+}
+
+.project-card img {
+	width: 80px;
+	height: 80px;
+	margin-bottom: var(--osgeo-space-3);
+}
+
+.project-card h3 {
+	font-size: var(--osgeo-text-h3);
+	margin-bottom: var(--osgeo-space-2);
+}
+
+/* Event highlight */
+.event-highlight {
+	position: relative;
+	background-image: var(
+		--event-image,
+		linear-gradient(135deg, var(--osgeo-primary-dark) 0%, var(--osgeo-primary) 100%)
+	);
+	background-size: cover;
+	background-position: center;
+	padding: var(--osgeo-space-8) 0;
+	text-align: center;
+}
+
+.event-highlight::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: var(--osgeo-overlay);
+}
+
+.event-highlight-content {
+	position: relative;
+	z-index: 1;
+	color: var(--osgeo-fg-inverted);
+}
+
+.event-highlight h2 {
+	color: inherit;
+	font-size: var(--osgeo-text-h1);
+	margin-bottom: var(--osgeo-space-3);
+}
+
+.event-highlight p {
+	max-width: 600px;
+	margin: 0 auto var(--osgeo-space-4);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   SITE FOOTER
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+.site-footer {
+	background: var(--osgeo-primary);
+	color: var(--osgeo-fg-inverted);
+	padding: var(--osgeo-space-6) 0 var(--osgeo-space-4);
+}
+
+.site-footer a {
+	color: var(--osgeo-fg-inverted);
+}
+
+.site-footer a:hover {
+	color: var(--osgeo-accent);
+}
+
+.footer-grid {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: var(--osgeo-space-5);
+	margin-bottom: var(--osgeo-space-5);
+}
+
+.footer-grid h3 {
+	color: var(--osgeo-fg-inverted);
+	font-size: var(--osgeo-text-h3);
+	margin-bottom: var(--osgeo-space-3);
+}
+
+.footer-links {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.footer-links li {
+	margin-bottom: var(--osgeo-space-2);
+}
+
+.footer-bottom {
+	border-top: 1px solid rgba(255, 255, 255, 0.2);
+	padding-top: var(--osgeo-space-4);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--osgeo-space-3);
+	flex-wrap: wrap;
+	font-size: var(--osgeo-text-caption);
+	opacity: 0.8;
+}
+
+.social-links {
+	display: flex;
+	gap: var(--osgeo-space-3);
+}
+
+.social-links a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: var(--osgeo-radius-sm);
+	transition: background var(--osgeo-duration-fast) var(--osgeo-ease);
+}
+
+.social-links a:hover {
+	background: var(--osgeo-accent);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   CONTENT PAGES (blog index, blog posts, about)
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+main {
+	width: var(--osgeo-max-width);
+	max-width: calc(100% - 2em);
+	margin: auto;
+	padding: var(--osgeo-space-7) var(--osgeo-space-3);
+	font-size: var(--osgeo-text-body-lg);
+}
+
+/* The landing page manages its own full-bleed sections. */
+main.landing {
+	width: 100%;
+	max-width: none;
+	margin: 0;
+	padding: 0;
+	font-size: var(--osgeo-text-body);
+}
+
+.prose {
+	font-size: var(--osgeo-text-body-lg);
+	line-height: var(--osgeo-leading-relaxed);
+	color: var(--osgeo-neutral-900);
+}
+
+.prose h1 {
+	font-size: 2.2em;
+}
+.prose h2 {
+	font-size: 1.7em;
+}
+.prose h3 {
+	font-size: 1.35em;
+}
+.prose h4 {
+	font-size: 1.15em;
+}
+
+.prose p {
+	margin-bottom: 1.5em;
+}
+
+.prose img {
+	border-radius: var(--osgeo-radius-lg);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+	.two-col,
+	.footer-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.nav-toggle {
+		display: block;
+	}
+
+	.site-nav {
+		display: none;
+		position: absolute;
+		top: calc(100% + var(--osgeo-space-3));
+		left: 0;
+		right: 0;
+		background: var(--osgeo-bg);
+		flex-direction: column;
+		padding: var(--osgeo-space-4);
+		border-bottom: 1px solid var(--osgeo-border);
+	}
+
+	.site-nav.is-open {
+		display: flex;
+	}
+
+	.hero h1 {
+		font-size: var(--osgeo-text-h1);
+	}
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY HELPERS
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}

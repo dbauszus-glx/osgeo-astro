@@ -1,0 +1,272 @@
+/**
+ * OSGeo Design System — CSS Custom Properties
+ * Version: 1.0.0
+ * Source: https://www.osgeo.org/
+ *
+ * Ported from osgeo-chapter-template.html. Imported by global.css, which is
+ * loaded on every page through <BaseHead />.
+ *
+ * Fonts: Miriam Libre (headings + body). Loaded from Google Fonts in
+ * BaseHead.astro. Both Miriam Libre and Sintony are OFL 1.1 licensed and safe
+ * for derivative works, so they can be self-hosted from public/fonts/ instead.
+ */
+
+:root {
+	/* ═══════════════════════════════════════════════════════════════════════════
+	   COLOR PALETTE
+	   ═══════════════════════════════════════════════════════════════════════════ */
+
+	/* Primary: Deep teal — brand color, text, navigation, footer */
+	--osgeo-primary: #003a40;
+	--osgeo-primary-dark: #000c0d;
+	--osgeo-primary-rgb: 0, 58, 64;
+
+	/* Accent: Vibrant green — CTAs, links, badges, interactive elements */
+	--osgeo-accent: #4caf5b;
+	--osgeo-accent-hover: #3d8b4a;
+	--osgeo-accent-accessible: #2e7d3b; /* WCAG AA on white */
+	--osgeo-accent-rgb: 76, 175, 91;
+
+	/* Neutral scale */
+	--osgeo-neutral-50: #fafafa;
+	--osgeo-neutral-100: #f5f5f5;
+	--osgeo-neutral-200: #eaeaea;
+	--osgeo-neutral-300: #e0e0e0;
+	--osgeo-neutral-400: #bdbdbd;
+	--osgeo-neutral-500: #9e9e9e;
+	--osgeo-neutral-600: #757575;
+	--osgeo-neutral-700: #616161;
+	--osgeo-neutral-800: #424242;
+	--osgeo-neutral-900: #212121;
+
+	/* Semantic colors */
+	--osgeo-success: #4caf5b;
+	--osgeo-warning: #f0ad4e;
+	--osgeo-error: #a94442;
+	--osgeo-info: #31708f;
+
+	/* Surfaces */
+	--osgeo-bg: #ffffff;
+	--osgeo-surface: #ffffff;
+	--osgeo-surface-elevated: #fafafa;
+	--osgeo-overlay: rgba(0, 58, 64, 0.4);
+
+	/* Foreground */
+	--osgeo-fg: #003a40;
+	--osgeo-fg-muted: #757575;
+	--osgeo-fg-inverted: #ffffff;
+
+	/* Borders */
+	--osgeo-border: #e0e0e0;
+	--osgeo-border-strong: #bdbdbd;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+	   TYPOGRAPHY
+	   ═══════════════════════════════════════════════════════════════════════════ */
+
+	--osgeo-font-heading: 'Miriam Libre', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	--osgeo-font-body: 'Miriam Libre', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	--osgeo-font-mono: Consolas, Monaco, 'Andale Mono', monospace;
+
+	/* Type scale — sizes */
+	--osgeo-text-display: 42px;
+	--osgeo-text-h1: 30px;
+	--osgeo-text-h2: 24px;
+	--osgeo-text-h3: 18px;
+	--osgeo-text-body-lg: 16px;
+	--osgeo-text-body: 14px;
+	--osgeo-text-caption: 12px;
+	--osgeo-text-overline: 11px;
+
+	/* Line heights */
+	--osgeo-leading-tight: 1.2;
+	--osgeo-leading-snug: 1.3;
+	--osgeo-leading-normal: 1.4;
+	--osgeo-leading-relaxed: 1.6;
+
+	/* Font weights */
+	--osgeo-weight-normal: 400;
+	--osgeo-weight-bold: 700;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+	   SPACING
+	   ═══════════════════════════════════════════════════════════════════════════ */
+
+	--osgeo-space-0: 0;
+	--osgeo-space-1: 5px;
+	--osgeo-space-2: 10px;
+	--osgeo-space-3: 15px;
+	--osgeo-space-4: 20px;
+	--osgeo-space-5: 30px;
+	--osgeo-space-6: 45px;
+	--osgeo-space-7: 60px;
+	--osgeo-space-8: 90px;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+	   LAYOUT
+	   ═══════════════════════════════════════════════════════════════════════════ */
+
+	--osgeo-max-width: 1140px;
+	--osgeo-gutter: 30px;
+
+	/* Sticky header: 48px logo + 2 × space-3 padding + 1px border. */
+	--osgeo-header-height: 79px;
+
+	/* Breakpoints (for reference; use in @media queries) */
+	--osgeo-bp-sm: 768px;
+	--osgeo-bp-md: 992px;
+	--osgeo-bp-lg: 1200px;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+	   SHAPE
+	   ═══════════════════════════════════════════════════════════════════════════ */
+
+	--osgeo-radius-none: 0;
+	--osgeo-radius-sm: 3px;
+	--osgeo-radius-md: 6px;
+	--osgeo-radius-lg: 10px;
+	--osgeo-radius-pill: 50px;
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+	   ELEVATION (minimal by design)
+	   ═══════════════════════════════════════════════════════════════════════════ */
+
+	--osgeo-shadow-none: none;
+	--osgeo-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+	--osgeo-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+	--osgeo-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+	/* ═══════════════════════════════════════════════════════════════════════════
+	   MOTION
+	   ═══════════════════════════════════════════════════════════════════════════ */
+
+	--osgeo-ease: ease-in-out;
+	--osgeo-duration-fast: 150ms;
+	--osgeo-duration-normal: 300ms;
+	--osgeo-duration-slow: 500ms;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   COMPONENT CLASSES
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/* Container */
+.osgeo-container {
+	width: 100%;
+	max-width: var(--osgeo-max-width);
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--osgeo-gutter);
+	padding-right: var(--osgeo-gutter);
+}
+
+/* Buttons */
+.osgeo-btn {
+	display: inline-block;
+	padding: 10px 20px;
+	font-family: var(--osgeo-font-heading);
+	font-size: var(--osgeo-text-body);
+	font-weight: var(--osgeo-weight-bold);
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	border-radius: var(--osgeo-radius-sm);
+	cursor: pointer;
+	transition:
+		background-color var(--osgeo-duration-fast) var(--osgeo-ease),
+		color var(--osgeo-duration-fast) var(--osgeo-ease),
+		border-color var(--osgeo-duration-fast) var(--osgeo-ease);
+}
+
+.osgeo-btn-primary {
+	background-color: var(--osgeo-accent);
+	color: var(--osgeo-fg-inverted);
+}
+
+.osgeo-btn-primary:hover {
+	background-color: var(--osgeo-accent-hover);
+	color: var(--osgeo-fg-inverted);
+	text-decoration: none;
+}
+
+.osgeo-btn-outline {
+	background-color: transparent;
+	color: var(--osgeo-primary);
+	border: 2px solid var(--osgeo-primary);
+	padding: 8px 18px;
+}
+
+.osgeo-btn-outline:hover {
+	background-color: var(--osgeo-primary);
+	color: var(--osgeo-fg-inverted);
+	text-decoration: none;
+}
+
+.osgeo-btn-outline-light {
+	background-color: transparent;
+	color: var(--osgeo-fg-inverted);
+	border: 2px solid var(--osgeo-fg-inverted);
+	padding: 8px 18px;
+}
+
+.osgeo-btn-outline-light:hover {
+	background-color: var(--osgeo-fg-inverted);
+	color: var(--osgeo-primary);
+	text-decoration: none;
+}
+
+/* Date badge */
+.osgeo-date-badge {
+	display: inline-block;
+	background-color: var(--osgeo-accent);
+	color: var(--osgeo-fg-inverted);
+	padding: 8px 12px;
+	border-radius: var(--osgeo-radius-sm);
+	font-size: var(--osgeo-text-caption);
+	font-weight: var(--osgeo-weight-bold);
+	text-align: center;
+	line-height: var(--osgeo-leading-tight);
+}
+
+/* Card */
+.osgeo-card {
+	background-color: var(--osgeo-surface);
+	border: 1px solid var(--osgeo-border);
+	border-radius: var(--osgeo-radius-md);
+	padding: var(--osgeo-space-4);
+}
+
+/* Section */
+.osgeo-section {
+	padding: var(--osgeo-space-7) 0;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+.osgeo-text-primary {
+	color: var(--osgeo-primary);
+}
+.osgeo-text-accent {
+	color: var(--osgeo-accent);
+}
+.osgeo-text-muted {
+	color: var(--osgeo-fg-muted);
+}
+.osgeo-text-inverted {
+	color: var(--osgeo-fg-inverted);
+}
+
+.osgeo-bg-primary {
+	background-color: var(--osgeo-primary);
+}
+.osgeo-bg-accent {
+	background-color: var(--osgeo-accent);
+}
+.osgeo-bg-surface {
+	background-color: var(--osgeo-surface);
+}
+.osgeo-bg-elevated {
+	background-color: var(--osgeo-surface-elevated);
+}

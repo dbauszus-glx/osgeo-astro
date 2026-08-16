@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> & { date: Date };
+
+// `...rest` forwards Astro's scoped-style marker so a parent can style the badge.
+const { date, class: className, ...rest } = Astro.props;
+
+const month = date.toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' });
+const day = date.toLocaleDateString('en-GB', { day: 'numeric', timeZone: 'UTC' });
+---
+
+<div class:list={['osgeo-date-badge', className]} {...rest}>
+	<div>{month}</div>
+	<div><strong>{day}</strong></div>
+</div>
