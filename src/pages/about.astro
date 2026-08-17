@@ -1,63 +1,132 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL, SITE_TITLE } from '../consts';
+
+const officers = [
+	{ role: 'Chair', name: 'Nick Bearman' },
+	{ role: 'Secretary', name: 'Ant Scott' },
+	{ role: 'Treasurer', name: 'Json Singh' },
+];
+
+const committee = [
+	'Dave Barter',
+	'Alastair Graham',
+	'Tom Armitage',
+	'Jonny Huck',
+	'Dennis Bauszus',
+	'James Milner',
+];
+
+// The constitutions are PDFs hosted on the current uk.osgeo.org site.
+const constitutions = [
+	{
+		label: 'Current constitution, adopted October 2025',
+		href: 'https://uk.osgeo.org/files/OSGeoUKConstitution-2025_signed_NB_AS_JS.pdf',
+	},
+	{
+		label: 'Previous constitution, adopted March 2016 and altered by SGM in December 2018',
+		href: 'https://uk.osgeo.org/files/OSGeoUKFinalConstitution_2018_amendments-signed.pdf',
+	},
+	{
+		label: 'Earlier constitution',
+		href: 'https://uk.osgeo.org/files/OSGeo%20UK%20Final%20Constitution%20-%20Signed.pdf',
+	},
+];
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
+<BaseLayout
+	title={`About — ${SITE_TITLE}`}
+	description="OSGeo:UK is a focal point for users, service providers and developers of open source geospatial software within the UK, for networking and advice."
 >
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+	<h1 class="section-title">About OSGeo:UK</h1>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+	<div class="two-col">
+		<div>
+			<p class="lead">
+				OSGeo:UK is a focal point for users, service providers and developers of open source
+				geospatial software within the UK, for networking and advice.
+			</p>
+			<p>
+				We promote open source geospatial tools across diverse user groups, including those with
+				limited software access. Our community supports newcomers entering the geospatial field
+				while fostering collaboration among developers and users.
+			</p>
+			<p>
+				<strong>Membership is free</strong> and open to anyone interested in open source geospatial
+				software. Join through our mailing list to connect with 45+ active members across the UK.
+			</p>
+			<p class="about-cta">
+				<a href={`mailto:${CONTACT_EMAIL}`} class="osgeo-btn osgeo-btn-primary">Contact Us</a>
+			</p>
+		</div>
+		<div>
+			<h2>What We Do</h2>
+			<ul class="about-list">
+				<li>Networking and collaboration among developers and users</li>
+				<li>Hosting FOSS4G:UK events approximately every two years</li>
+				<li>Organising smaller single-day topical events</li>
+				<li>Promoting initiatives like the UK QGIS User Group</li>
+				<li>Offering limited funding to support open source projects</li>
+				<li>Supporting newcomers to the geospatial field</li>
+			</ul>
+		</div>
+	</div>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+	<h2 id="legal" class="section-title legal-title">Legal</h2>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+	<div class="two-col">
+		<div>
+			<p>OSGeo:UK is an unincorporated organisation.</p>
+			<ul class="about-list">
+				{
+					constitutions.map((constitution) => (
+						<li>
+							<a href={constitution.href}>{constitution.label}</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+		<div>
+			<h3>Officers</h3>
+			<ul class="about-list">
+				{
+					officers.map((officer) => (
+						<li>
+							<strong>{officer.role}:</strong> {officer.name}
+						</li>
+					))
+				}
+			</ul>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+			<h3>Committee Members</h3>
+			<ul class="about-list">
+				{committee.map((member) => <li>{member}</li>)}
+			</ul>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	.lead {
+		font-size: var(--osgeo-text-body-lg);
+		margin-bottom: var(--osgeo-space-4);
+	}
+
+	.about-cta {
+		margin-top: var(--osgeo-space-5);
+	}
+
+	.legal-title {
+		margin-top: var(--osgeo-space-7);
+	}
+
+	.about-list {
+		margin: var(--osgeo-space-3) 0;
+		padding-left: var(--osgeo-space-4);
+	}
+
+	.about-list li {
+		margin-bottom: var(--osgeo-space-2);
+	}
+</style>

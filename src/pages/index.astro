@@ -4,7 +4,14 @@ import DateBadge from '../components/DateBadge.astro';
 import EventCard from '../components/EventCard.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import {
+	CONTACT_EMAIL,
+	NEWSLETTER_INTRO,
+	NEWSLETTER_SIGNUP_URL,
+	SITE_DESCRIPTION,
+	SITE_TAGLINE,
+	SITE_TITLE,
+} from '../consts';
 import { getEvents } from '../events';
 import { newsletterIssues } from '../newsletter';
 import { withBase } from '../url';
@@ -35,79 +42,14 @@ const projects = [
 	<section class="hero" style={`--hero-image: url('${heroImage.src}')`}>
 		<div class="osgeo-container">
 			<div class="hero-content">
-				<h1>OSGeo:UK</h1>
 				<p>
 					Supporting open source geospatial software and community across the United Kingdom. Join
 					our local chapter of the Open Source Geospatial Foundation.
 				</p>
 				<div class="hero-buttons">
-					<a href="#events" class="osgeo-btn osgeo-btn-outline-light">Upcoming Events</a>
+					<a href={withBase('/about')} class="osgeo-btn osgeo-btn-outline-light">About Us</a>
+						<a href="#events" class="osgeo-btn osgeo-btn-outline-light">Upcoming Events</a>
 					<a href={`mailto:${CONTACT_EMAIL}`} class="osgeo-btn osgeo-btn-outline-light">Join Us</a>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- ═══════════════════════════════════════════════════════════════════════
-	     ABOUT
-	     ═══════════════════════════════════════════════════════════════════════ -->
-	<section class="osgeo-section" id="about">
-		<div class="osgeo-container">
-			<div class="two-col">
-				<div>
-					<h2 class="section-title">About OSGeo:UK</h2>
-					<p class="lead">
-						OSGeo:UK is a focal point for users, service providers and developers of open source
-						geospatial software within the UK, for networking and advice.
-					</p>
-					<p>
-						We promote open source geospatial tools across diverse user groups, including those with
-						limited software access. Our community supports newcomers entering the geospatial field
-						while fostering collaboration among developers and users.
-					</p>
-					<p>
-						<strong>Membership is free</strong> and open to anyone interested in open source geospatial
-						software. Join through our mailing list to connect with 45+ active members across the UK.
-					</p>
-					<p class="about-cta">
-						<a href={`mailto:${CONTACT_EMAIL}`} class="osgeo-btn osgeo-btn-primary">Contact Us</a>
-					</p>
-				</div>
-				<div>
-					<h3>What We Do</h3>
-					<ul class="about-list">
-						<li>Networking and collaboration among developers and users</li>
-						<li>Hosting FOSS4G:UK events approximately every two years</li>
-						<li>Organising smaller single-day topical events</li>
-						<li>Promoting initiatives like the UK QGIS User Group</li>
-						<li>Offering limited funding to support open source projects</li>
-						<li>Supporting newcomers to the geospatial field</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>	
-
-	<!-- ═══════════════════════════════════════════════════════════════════════
-	     INTRO COLUMNS (3-column feature strip)
-	     ═══════════════════════════════════════════════════════════════════════ -->
-	<section class="osgeo-section osgeo-bg-elevated">
-		<div class="osgeo-container">
-			<div class="card-grid">
-				<div class="osgeo-card">
-					<h2>Local Projects</h2>
-					<p>Discover open source geospatial projects being used and developed in the UK.</p>
-					<a href="#projects" class="osgeo-btn osgeo-btn-outline">View Projects</a>
-				</div>
-				<div class="osgeo-card">
-					<h2>Community</h2>
-					<p>Connect with local GIS professionals, developers, and enthusiasts.</p>
-					<a href="#about" class="osgeo-btn osgeo-btn-outline">Join Community</a>
-				</div>
-				<div class="osgeo-card">
-					<h2>Education</h2>
-					<p>Workshops, tutorials, and resources for learning open source GIS.</p>
-					<a href="#events" class="osgeo-btn osgeo-btn-outline">Learn More</a>
 				</div>
 			</div>
 		</div>
@@ -119,6 +61,19 @@ const projects = [
 	<section class="osgeo-section" id="newsletter">
 		<div class="osgeo-container">
 			<h2 class="section-title">Newsletter</h2>
+
+			<p class="newsletter-lead">{NEWSLETTER_INTRO}</p>
+
+			<p class="newsletter-signup">
+				<a
+					href={NEWSLETTER_SIGNUP_URL}
+					class="osgeo-btn osgeo-btn-primary"
+					target="_blank"
+					rel="noopener"
+				>
+					Sign up to the newsletter
+				</a>
+			</p>
 
 			{
 				newsletter.map((issue) => (
@@ -172,7 +127,7 @@ const projects = [
 	     ═══════════════════════════════════════════════════════════════════════ -->
 	<section class="osgeo-section osgeo-bg-elevated" id="projects">
 		<div class="osgeo-container">
-			<h2 class="section-title">Projects We Support</h2>
+			<h2 class="section-title">Projects We Support ❤️</h2>
 			<div class="card-grid">
 				{
 					projects.map((project) => (
@@ -192,26 +147,17 @@ const projects = [
 </BaseLayout>
 
 <style>
-	.lead {
+	.events-more {
+		margin-top: var(--osgeo-space-4);
+	}
+
+	.newsletter-lead {
 		font-size: var(--osgeo-text-body-lg);
 		margin-bottom: var(--osgeo-space-4);
 	}
 
-	.about-cta {
-		margin-top: var(--osgeo-space-5);
-	}
-
-	.about-list {
-		margin: var(--osgeo-space-3) 0;
-		padding-left: var(--osgeo-space-4);
-	}
-
-	.about-list li {
-		margin-bottom: var(--osgeo-space-2);
-	}
-
-	.events-more {
-		margin-top: var(--osgeo-space-4);
+	.newsletter-signup {
+		margin: 0 0 var(--osgeo-space-6);
 	}
 
 	.newsletter-more {

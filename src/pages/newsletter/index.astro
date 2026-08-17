@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { SITE_TITLE } from '../../consts';
+import { SITE_TITLE, NEWSLETTER_INTRO, NEWSLETTER_SIGNUP_URL } from '../../consts';
 import { newsletterIssues as issues } from '../../newsletter';
 ---
 
@@ -9,9 +9,17 @@ import { newsletterIssues as issues } from '../../newsletter';
 	description="Past issues of the OSGeo:UK newsletter."
 >
 	<h1 class="section-title">Newsletter</h1>
-	<p class="lead">
-		Chapter and community news from across the UK, delivered a few times a year. Browse past issues
-		below.
+	<p class="lead">{NEWSLETTER_INTRO}</p>
+
+	<p class="newsletter-cta">
+		<a
+			href={NEWSLETTER_SIGNUP_URL}
+			class="osgeo-btn osgeo-btn-primary"
+			target="_blank"
+			rel="noopener"
+		>
+			Sign up to the newsletter
+		</a>
 	</p>
 
 	<div class="card-grid">
@@ -43,6 +51,10 @@ import { newsletterIssues as issues } from '../../newsletter';
 	.lead {
 		font-size: var(--osgeo-text-body-lg);
 		margin-bottom: var(--osgeo-space-6);
+	}
+
+	.newsletter-cta {
+		margin: 0 0 var(--osgeo-space-6);
 	}
 
 	.issue-card {

@@ -257,6 +257,10 @@ input {
 	z-index: 1;
 	color: var(--osgeo-fg-inverted);
 	max-width: 600px;
+	/* Semi-transparent primary panel so the text stays legible over the photo. */
+	background: rgba(var(--osgeo-primary-rgb), 0.7);
+	padding: var(--osgeo-space-5);
+	border-radius: var(--osgeo-radius-md);
 }
 
 .hero h1 {
@@ -266,7 +270,8 @@ input {
 }
 
 .hero p {
-	font-size: var(--osgeo-text-body-lg);
+	font-size: var(--osgeo-text-h2);
+	font-weight: var(--osgeo-weight-bold);
 	margin-bottom: var(--osgeo-space-4);
 	opacity: 0.95;
 }
@@ -553,6 +558,10 @@ main.landing {
 
 	.hero h1 {
 		font-size: var(--osgeo-text-h1);
+	}
+
+	.hero p {
+		font-size: var(--osgeo-text-h3);
 	}
 }
 
