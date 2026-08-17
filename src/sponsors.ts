@@ -37,6 +37,12 @@ export const SPONSORS = {
 	'women-in-geospatial': { name: 'Women+ in Geospatial', href: 'https://womeningeospatial.org', logo: 'women_geospatial.png' },
 	agi: { name: 'The Association for Geographic Information', href: 'https://www.agi.org.uk', logo: 'association-graphical-information.jpg' },
 	mapaction: { name: 'MapAction', href: 'https://mapaction.org', logo: 'mapaction.png' },
+	pixalytics: { name: 'Pixalytics', href: 'https://www.pixalytics.com/', logo: 'pixalytics.png' },
+	lutra: { name: 'Lutra Consulting', href: 'https://www.lutraconsulting.co.uk/', logo: 'lutra.svg' },
+	'ordnance-survey': { name: 'Ordnance Survey', href: 'https://www.ordnancesurvey.co.uk/', logo: 'ordnance_survey.svg' },
+	geojam: { name: 'GeoJam', href: 'https://geojam.tech/', logo: 'geojam.png' },
+	sensat: { name: 'Sensat', href: 'https://www.sensat.co/', logo: 'sensat.png' },
+	hot: { name: 'Humanitarian OpenStreetMap Team', href: 'https://www.hotosm.org/', logo: 'hot.png' },
 } as const satisfies Record<string, Sponsor>;
 
 export type SponsorKey = keyof typeof SPONSORS;

@@ -16,9 +16,13 @@ import { getEvents } from '../events';
 import { newsletterIssues } from '../newsletter';
 import { withBase } from '../url';
 import dales from '../assets/dales.jpg';
+import shirts from '../assets/foss4g-shirts.jpg';
 
 // Background photo for the hero section.
 const heroImage = await getImage({ src: dales, width: 1920, format: 'webp' });
+
+// Background photo for the FOSS4G:UK event highlight.
+const eventImage = await getImage({ src: shirts, width: 1920, format: 'webp' });
 
 // The three most recent issues from /newsletter.
 const newsletter = newsletterIssues.slice(0, 3);
@@ -97,9 +101,9 @@ const projects = [
 
 	<!-- ═══════════════════════════════════════════════════════════════════════
 	     EVENT HIGHLIGHT (full-width hero style)
-	     Set style="--event-image: url('/event.jpg')" to use a photo.
+	     The background photo comes from src/assets/foss4g-shirts.jpg via --event-image.
 	     ═══════════════════════════════════════════════════════════════════════ -->
-	<section class="event-highlight">
+	<section class="event-highlight" style={`--event-image: url('${eventImage.src}')`}>
 		<div class="event-highlight-content">
 			<h2>FOSS4G:UK 2026</h2>
 			<p>Join us for the UK's Free and Open Source Software for Geospatial conference.</p>
