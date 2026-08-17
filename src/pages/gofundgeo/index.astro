@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import DateBadge from '../../components/DateBadge.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL, SITE_TITLE } from '../../consts';
+
+// Newest round first. `render` has to happen here so each entry's body is
+// available as a component below.
+const entries = await Promise.all(
+	(await getCollection('gofundgeo'))
+		.sort((a, b) => b.data.startDate.valueOf() - a.data.startDate.valueOf())
+		.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+---
+
+<BaseLayout
+	title={`GoFundGeo — ${SITE_TITLE}`}
+	description="Funding from OSGeo:UK for open source geospatial projects and the GISRUK & OSGeo:UK GoFundGeo Award."
+>
+	<h1 class="section-title">GoFundGeo</h1>
+	<p class="lead">
+		GoFundGeo is how OSGeo:UK puts its funds back into open source geospatial. We support software
+		projects, tools and community work across the UK, and co-fund the GISRUK &amp; OSGeo:UK
+		GoFundGeo Award with GISRUK. Announcements from each round are below, most recent first.
+	</p>
+
+	{
+		entries.map(({ entry, Content }) => (
+			<article class="round" id={entry.id}>
+				<header class="round-header">
+					<DateBadge date={entry.data.startDate} />
+					<div>
+						<h2 class="round-title">{entry.data.title}</h2>
+						<p class="round-meta">
+							<FormattedDate date={entry.data.startDate} />
+							{entry.data.location && <> &middot; {entry.data.location}</>}
+						</p>
+					</div>
+				</header>
+
+				{entry.data.heroImage && (
+					<Image src={entry.data.heroImage} alt="" width={1020} height={510} class="round-image" />
+				)}
+
+				<p class="round-description">{entry.data.description}</p>
+
+				<div class="round-body">
+					<Content />
+				</div>
+			</article>
+		))
+	}
+
+	<p class="gofundgeo-cta">
+		Have a project you would like us to fund?
+		<a href={`mailto:${CONTACT_EMAIL}`} class="link-more">Get in touch &rarr;</a>
+	</p>
+</BaseLayout>
+
+<style>
+	.lead {
+		font-size: var(--osgeo-text-body-lg);
+		margin-bottom: var(--osgeo-space-6);
+	}
+
+	.round {
+		padding-top: var(--osgeo-space-6);
+		border-top: 1px solid var(--osgeo-border);
+	}
+
+	.round-header {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--osgeo-space-3);
+		margin-bottom: var(--osgeo-space-4);
+	}
+
+	.round-title {
+		margin: 0;
+	}
+
+	.round-meta {
+		margin: var(--osgeo-space-1) 0 0;
+		color: var(--osgeo-fg-muted);
+		font-size: var(--osgeo-text-caption);
+	}
+
+	.round-image {
+		width: 100%;
+		height: auto;
+		border-radius: var(--osgeo-radius-md);
+		margin-bottom: var(--osgeo-space-4);
+	}
+
+	.round-description {
+		font-weight: var(--osgeo-weight-bold);
+	}
+
+	.gofundgeo-cta {
+		margin-top: var(--osgeo-space-7);
+		padding-top: var(--osgeo-space-5);
+		border-top: 1px solid var(--osgeo-border);
+	}
+</style>

@@ -31,7 +31,34 @@ const events = defineCollection({
 			/** External registration/booking page, if the event has one. */
 			registerUrl: z.string().url().optional(),
 			heroImage: image().optional(),
+			/**
+			 * Sponsors by tier, in the order they should be shown. `logos` are keys
+			 * from SPONSORS in src/sponsors.ts, so logos are shared between events.
+			 */
+			sponsors: z
+				.array(
+					z.object({
+						tier: z.string(),
+						logos: z.array(z.string()).nonempty(),
+					}),
+				)
+				.optional(),
 		}),
 });
 
-export const collections = { blog, events };
+const gofundgeo = defineCollection({
+	// Load Markdown and MDX files in the `src/content/gofundgeo/` directory.
+	// One entry per funding round or award announcement.
+	loader: glob({ base: './src/content/gofundgeo', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			/** Date of the award or of the meeting the funding was agreed at. */
+			startDate: z.coerce.date(),
+			location: z.string().optional(),
+			heroImage: image().optional(),
+		}),
+});
+
+export const collections = { blog, events, gofundgeo };

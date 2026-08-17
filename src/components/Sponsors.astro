@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import { getSponsor } from '../sponsors';
+
+export interface SponsorTier {
+	/** Heading for the tier, e.g. "Gold Sponsors". */
+	tier: string;
+	/** Sponsor keys from SPONSORS in src/sponsors.ts. */
+	logos: string[];
+}
+
+interface Props {
+	tiers: SponsorTier[];
+	title?: string;
+}
+
+const { tiers, title = 'Our Sponsors and partners' } = Astro.props;
+
+// Resolve up front so an unknown key fails the build with a useful message.
+const resolved = tiers.map(({ tier, logos }) => ({ tier, sponsors: logos.map(getSponsor) }));
+---
+
+{
+	resolved.length > 0 && (
+		<section class="sponsors">
+			<h2 class="sponsors-title">{title}</h2>
+			{resolved.map(({ tier, sponsors }) => (
+				<>
+					<h3 class="sponsors-tier">{tier}</h3>
+					<div class="sponsor-grid">
+						{sponsors.map((sponsor) => (
+							<a
+								class="sponsor-tile"
+								href={sponsor.href}
+								title={sponsor.name}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Image src={sponsor.image} alt={sponsor.name} height={80} loading="lazy" />
+							</a>
+						))}
+					</div>
+				</>
+			))}
+		</section>
+	)
+}
+
+<style>
+	.sponsors {
+		margin-top: var(--osgeo-space-7);
+	}
+
+	.sponsors-title {
+		text-align: center;
+	}
+
+	.sponsors-tier {
+		text-align: center;
+		font-size: var(--osgeo-text-h3);
+		margin-top: var(--osgeo-space-6);
+		margin-bottom: var(--osgeo-space-4);
+	}
+
+	.sponsor-grid {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--osgeo-space-3);
+	}
+
+	.sponsor-tile {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* The logos are supplied for a light background, so the tile stays white
+		   regardless of the surrounding surface. */
+		background: #fff;
+		padding: var(--osgeo-space-3);
+		border-radius: var(--osgeo-radius-md);
+		box-shadow:
+			0.1rem 0.1rem 0.5rem rgb(0 0 0 / 0.05),
+			0.15rem 0.15rem 0.75rem rgb(0 0 0 / 0.1);
+	}
+
+	.sponsor-tile img {
+		width: auto;
+		height: auto;
+		max-width: 200px;
+		max-height: 2.5rem;
+		object-fit: contain;
+	}
+</style>

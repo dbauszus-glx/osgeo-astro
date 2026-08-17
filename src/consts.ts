@@ -10,8 +10,9 @@ export const CONTACT_EMAIL = 'osgeouk@gmail.com';
 
 export const NAV_LINKS = [
 	{ href: '/#about', label: 'About' },
-	{ href: '/#newsletter', label: 'Newsletter' },
-	{ href: '/#events', label: 'Events' },
+	{ href: '/newsletter', label: 'Newsletter' },
+	{ href: '/events', label: 'Events' },
+	{ href: '/gofundgeo', label: 'GoFundGeo' },
 ];
 
 export const SOCIAL_LINKS = {

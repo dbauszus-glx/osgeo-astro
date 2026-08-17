@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import DateBadge from '../../components/DateBadge.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
+import Sponsors from '../../components/Sponsors.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE_TITLE } from '../../consts';
 import { withBase } from '../../url';
@@ -18,7 +19,8 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'events'>;
 
 const event = Astro.props;
-const { title, description, startDate, endDate, location, registerUrl, heroImage } = event.data;
+const { title, description, startDate, endDate, location, registerUrl, heroImage, sponsors } =
+	event.data;
 const { Content } = await render(event);
 ---
 
@@ -53,6 +55,8 @@ const { Content } = await render(event);
 				</p>
 			)
 		}
+
+		{sponsors && <Sponsors tiers={sponsors} />}
 	</article>
 </BaseLayout>
 
