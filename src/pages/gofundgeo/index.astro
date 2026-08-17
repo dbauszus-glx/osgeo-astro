@@ -23,18 +23,23 @@ const entries = await Promise.all(
 	<p class="lead">
 		GoFundGeo is how OSGeo:UK puts its funds back into open source geospatial. We support software
 		projects, tools and community work across the UK, and co-fund the GISRUK &amp; OSGeo:UK
-		GoFundGeo Award with GISRUK. Announcements from each round are below, most recent first.
+		GoFundGeo Award with GISRUK. Announcements from each round are below, most recent first,
+		followed by the donations we made before GoFundGeo started in 2022.
 	</p>
 
 	{
 		entries.map(({ entry, Content }) => (
 			<article class="round" id={entry.id}>
 				<header class="round-header">
-					<DateBadge date={entry.data.startDate} />
+					{entry.data.dateLabel ? (
+						<div class="osgeo-date-badge">{entry.data.dateLabel}</div>
+					) : (
+						<DateBadge date={entry.data.startDate} />
+					)}
 					<div>
 						<h2 class="round-title">{entry.data.title}</h2>
 						<p class="round-meta">
-							<FormattedDate date={entry.data.startDate} />
+							{entry.data.dateLabel ?? <FormattedDate date={entry.data.startDate} />}
 							{entry.data.location && <> &middot; {entry.data.location}</>}
 						</p>
 					</div>
@@ -96,6 +101,18 @@ const entries = await Promise.all(
 
 	.round-description {
 		font-weight: var(--osgeo-weight-bold);
+	}
+
+	/* Testimonials are quoted in the round bodies; the global blockquote size is
+	   meant for pull quotes and is too large for several paragraphs of text. */
+	.round-body :global(blockquote) {
+		font-size: inherit;
+		margin: var(--osgeo-space-4) 0;
+		color: var(--osgeo-fg-muted);
+	}
+
+	.round-body :global(hr) {
+		margin: var(--osgeo-space-5) 0;
 	}
 
 	.gofundgeo-cta {

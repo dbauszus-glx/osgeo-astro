@@ -56,6 +56,11 @@ const gofundgeo = defineCollection({
 			description: z.string(),
 			/** Date of the award or of the meeting the funding was agreed at. */
 			startDate: z.coerce.date(),
+			/**
+			 * Shown instead of the exact date for older rounds where only the
+			 * period is known, e.g. '2019–20'. `startDate` still sets the order.
+			 */
+			dateLabel: z.string().optional(),
 			location: z.string().optional(),
 			heroImage: image().optional(),
 		}),
