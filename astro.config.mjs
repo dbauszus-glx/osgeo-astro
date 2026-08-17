@@ -36,7 +36,9 @@ function newsletterArchive() {
 		name: 'newsletter-archive',
 		hooks: {
 			'astro:server:setup': ({ server }) => {
-				server.middlewares.use(`${BASE}/newsletter`, async (req, res, next) => {
+				// Mounted without `base`: Vite's own base middleware has already
+				// stripped it from req.url by the time this runs.
+				server.middlewares.use('/newsletter', async (req, res, next) => {
 					const path = decodeURIComponent((req.url ?? '/').split('?')[0]);
 					// Only intercept the issues and their asset folders; the
 					// /newsletter index route stays with Astro.

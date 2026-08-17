@@ -1,31 +1,23 @@
 ---
+import { getImage } from 'astro:assets';
 import DateBadge from '../components/DateBadge.astro';
+import EventCard from '../components/EventCard.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import { getEvents } from '../events';
 import { newsletterIssues } from '../newsletter';
 import { withBase } from '../url';
+import dales from '../assets/dales.jpg';
+
+// Background photo for the hero section.
+const heroImage = await getImage({ src: dales, width: 1920, format: 'webp' });
 
 // The three most recent issues from /newsletter.
 const newsletter = newsletterIssues.slice(0, 3);
 
-const events = [
-	{
-		title: 'Monthly Meetup',
-		description: 'Join us for our monthly community meetup in the UK.',
-		date: new Date('2026-09-15'),
-	},
-	{
-		title: 'QGIS Workshop',
-		description: 'Introduction to QGIS for beginners. No experience required.',
-		date: new Date('2026-10-05'),
-	},
-	{
-		title: 'FOSS4G:UK',
-		description: 'Our annual UK conference on open source geospatial.',
-		date: new Date('2026-11-20'),
-	},
-];
+// The next three events from /events.
+const events = (await getEvents()).upcoming.slice(0, 3);
 
 const projects = [
 	{ name: 'QGIS', description: 'Desktop GIS used across UK government, academia and industry.', href: 'https://qgis.org/' },
@@ -38,10 +30,9 @@ const projects = [
 <BaseLayout title={`${SITE_TITLE} — ${SITE_TAGLINE}`} description={SITE_DESCRIPTION} landing>
 	<!-- ═══════════════════════════════════════════════════════════════════════
 	     HERO
-	     Drop a landscape photo at public/hero.jpg and set
-	     style="--hero-image: url('/hero.jpg')" on this section.
+	     The background photo comes from src/assets/whernside.jpg via --hero-image.
 	     ═══════════════════════════════════════════════════════════════════════ -->
-	<section class="hero">
+	<section class="hero" style={`--hero-image: url('${heroImage.src}')`}>
 		<div class="osgeo-container">
 			<div class="hero-content">
 				<h1>OSGeo:UK</h1>
@@ -162,6 +153,21 @@ const projects = [
 	</section>
 
 	<!-- ═══════════════════════════════════════════════════════════════════════
+	     EVENTS LIST
+	     ═══════════════════════════════════════════════════════════════════════ -->
+	<section class="osgeo-section" id="events">
+		<div class="osgeo-container">
+			<h2 class="section-title">Upcoming Events</h2>
+			<div class="card-grid">
+				{events.map((event) => <EventCard event={event} />)}
+			</div>
+			<p class="events-more">
+				<a href={withBase('/events/')} class="link-more">View all events &rarr;</a>
+			</p>
+		</div>
+	</section>	
+
+	<!-- ═══════════════════════════════════════════════════════════════════════
 	     PROJECTS
 	     ═══════════════════════════════════════════════════════════════════════ -->
 	<section class="osgeo-section osgeo-bg-elevated" id="projects">
@@ -183,28 +189,6 @@ const projects = [
 		</div>
 	</section>
 
-	<!-- ═══════════════════════════════════════════════════════════════════════
-	     EVENTS LIST
-	     ═══════════════════════════════════════════════════════════════════════ -->
-	<section class="osgeo-section" id="events">
-		<div class="osgeo-container">
-			<h2 class="section-title">Upcoming Events</h2>
-			<div class="card-grid">
-				{
-					events.map((event) => (
-						<div class="osgeo-card">
-							<DateBadge date={event.date} class="event-badge" />
-							<h3>{event.title}</h3>
-							<p>{event.description}</p>
-						</div>
-					))
-				}
-			</div>
-			<p class="events-more">
-				<a href={withBase('/blog')} class="link-more">View all events &rarr;</a>
-			</p>
-		</div>
-	</section>
 </BaseLayout>
 
 <style>
@@ -224,10 +208,6 @@ const projects = [
 
 	.about-list li {
 		margin-bottom: var(--osgeo-space-2);
-	}
-
-	.event-badge {
-		margin-bottom: var(--osgeo-space-3);
 	}
 
 	.events-more {

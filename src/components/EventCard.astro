@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import DateBadge from './DateBadge.astro';
+import FormattedDate from './FormattedDate.astro';
+import { type Event, eventHref } from '../events';
+
+interface Props {
+	event: Event;
+	/** Show the hero image; off for the compact landing-page cards. */
+	withImage?: boolean;
+}
+
+const { event, withImage = false } = Astro.props;
+const { title, description, startDate, endDate, location, heroImage } = event.data;
+const href = eventHref(event);
+---
+
+<article class="osgeo-card event-card">
+	{
+		withImage && heroImage && (
+			<a href={href}>
+				<Image src={heroImage} alt="" width={720} height={360} class="event-thumb" loading="lazy" />
+			</a>
+		)
+	}
+
+	<DateBadge date={startDate} class="event-badge" />
+
+	<h3 class="event-title"><a href={href}>{title}</a></h3>
+
+	<p class="event-meta">
+		<FormattedDate date={startDate} />
+		{endDate && <> &ndash; <FormattedDate date={endDate} /></>}
+		{location && <> &middot; {location}</>}
+	</p>
+
+	<p class="event-description">{description}</p>
+
+	<a href={href} class="link-more">Event details &rarr;</a>
+</article>
+
+<style>
+	.event-card {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--osgeo-space-2);
+	}
+
+	.event-thumb {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2 / 1;
+		object-fit: cover;
+		border-radius: var(--osgeo-radius-sm);
+		margin-bottom: var(--osgeo-space-2);
+	}
+
+	.event-badge {
+		margin-bottom: var(--osgeo-space-1);
+	}
+
+	.event-title {
+		font-size: var(--osgeo-text-h3);
+		margin: 0;
+	}
+
+	.event-title a {
+		color: var(--osgeo-primary);
+	}
+
+	.event-title a:hover {
+		color: var(--osgeo-accent);
+	}
+
+	.event-meta {
+		margin: 0;
+		color: var(--osgeo-fg-muted);
+		font-size: var(--osgeo-text-caption);
+	}
+
+	.event-description {
+		margin: 0;
+		/* Push the "Event details" link to the bottom of every card in a row. */
+		flex: 1;
+	}
+</style>

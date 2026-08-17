@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import DateBadge from '../../components/DateBadge.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { withBase } from '../../url';
+
+export async function getStaticPaths() {
+	const events = await getCollection('events');
+	return events.map((event) => ({
+		params: { slug: event.id },
+		props: event,
+	}));
+}
+
+type Props = CollectionEntry<'events'>;
+
+const event = Astro.props;
+const { title, description, startDate, endDate, location, registerUrl, heroImage } = event.data;
+const { Content } = await render(event);
+---
+
+<BaseLayout title={`${title} — ${SITE_TITLE}`} description={description} image={heroImage}>
+	<article class="event">
+		<p class="event-back"><a href={withBase('/events/')}>&larr; All events</a></p>
+
+		{heroImage && <Image src={heroImage} alt="" width={1020} height={510} class="event-hero" />}
+
+		<header class="event-header">
+			<DateBadge date={startDate} />
+			<div>
+				<h1>{title}</h1>
+				<p class="event-meta">
+					<FormattedDate date={startDate} />
+					{endDate && <> &ndash; <FormattedDate date={endDate} /></>}
+					{location && <> &middot; {location}</>}
+				</p>
+			</div>
+		</header>
+
+		<p class="lead">{description}</p>
+
+		<Content />
+
+		{
+			registerUrl && (
+				<p class="event-cta">
+					<a href={registerUrl} class="osgeo-btn osgeo-btn-primary">
+						Register
+					</a>
+				</p>
+			)
+		}
+	</article>
+</BaseLayout>
+
+<style>
+	.event-back {
+		font-size: var(--osgeo-text-caption);
+		margin-bottom: var(--osgeo-space-4);
+	}
+
+	.event-hero {
+		width: 100%;
+		height: auto;
+		border-radius: var(--osgeo-radius-md);
+		margin-bottom: var(--osgeo-space-5);
+	}
+
+	.event-header {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--osgeo-space-3);
+		margin-bottom: var(--osgeo-space-5);
+	}
+
+	.event-header h1 {
+		margin: 0;
+	}
+
+	.event-meta {
+		margin: var(--osgeo-space-1) 0 0;
+		color: var(--osgeo-fg-muted);
+		font-size: var(--osgeo-text-caption);
+	}
+
+	.lead {
+		font-size: var(--osgeo-text-body-lg);
+	}
+
+	.event-cta {
+		margin-top: var(--osgeo-space-5);
+	}
+</style>

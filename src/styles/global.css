@@ -235,8 +235,8 @@ input {
 	min-height: 500px;
 	display: flex;
 	align-items: center;
-	/* Drop a landscape photo at public/hero.jpg to replace the gradient, or set
-	   --hero-image on the section: style="--hero-image: url('/hero.jpg')" */
+	/* Set --hero-image on the section to replace the gradient with a photo:
+	   style="--hero-image: url('...')" — see src/pages/index.astro */
 	background-image: var(
 		--hero-image,
 		linear-gradient(135deg, var(--osgeo-primary) 0%, var(--osgeo-primary-dark) 100%)

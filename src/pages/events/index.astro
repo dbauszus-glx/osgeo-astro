@@ -1,0 +1,56 @@
+---
+import EventCard from '../../components/EventCard.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_TITLE } from '../../consts';
+import { getEvents } from '../../events';
+
+const { upcoming, past } = await getEvents();
+---
+
+<BaseLayout
+	title={`Events — ${SITE_TITLE}`}
+	description="Meetups, workshops and conferences from OSGeo:UK."
+>
+	<h1 class="section-title">Events</h1>
+	<p class="lead">
+		Meetups, workshops and conferences run by OSGeo:UK and the wider UK open source geospatial
+		community. Everyone is welcome.
+	</p>
+
+	<h2 class="section-title">Upcoming</h2>
+	{
+		upcoming.length ? (
+			<div class="card-grid">
+				{upcoming.map((event) => (
+					<EventCard event={event} withImage />
+				))}
+			</div>
+		) : (
+			<p>No events are scheduled at the moment — check back soon.</p>
+		)
+	}
+
+	{
+		past.length > 0 && (
+			<>
+				<h2 class="section-title past-title">Past events</h2>
+				<div class="card-grid">
+					{past.map((event) => (
+						<EventCard event={event} withImage />
+					))}
+				</div>
+			</>
+		)
+	}
+</BaseLayout>
+
+<style>
+	.lead {
+		font-size: var(--osgeo-text-body-lg);
+		margin-bottom: var(--osgeo-space-6);
+	}
+
+	.past-title {
+		margin-top: var(--osgeo-space-7);
+	}
+</style>
