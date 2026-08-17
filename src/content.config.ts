@@ -61,4 +61,26 @@ const gofundgeo = defineCollection({
 		}),
 });
 
-export const collections = { blog, events, gofundgeo };
+const training = defineCollection({
+	// Load Markdown and MDX files in the `src/content/training/` directory.
+	// One entry per course; copy an existing file as a template for a new one.
+	loader: glob({ base: './src/content/training', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		description: z.string().optional(),
+		/** Day the course starts; also what the table sorts on. */
+		startDate: z.coerce.date(),
+		/** Only for courses that run over more than one day. */
+		endDate: z.coerce.date().optional(),
+		/** Who runs the course, e.g. 'Nick Bearman & InStats'. */
+		provider: z.string().optional(),
+		/** 'Online' or the venue the course is taught at. */
+		location: z.string().default('Online'),
+		/** Booking page — the course title in the table links here. */
+		registerUrl: z.string().url().optional(),
+		/** Free text, e.g. '£250' or 'Free'. Shown as-is. */
+		cost: z.string().optional(),
+	}),
+});
+
+export const collections = { blog, events, gofundgeo, training };

@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL, SITE_TITLE } from '../../consts';
+import { getTraining, trainingDates } from '../../training';
+
+const { upcoming, past } = await getTraining();
+// Cost is rarely given, so the column only appears when something has one.
+const showCost = upcoming.some((course) => course.data.cost);
+---
+
+<BaseLayout
+	title={`Training — ${SITE_TITLE}`}
+	description="Upcoming open source geospatial training courses from the OSGeo:UK community."
+>
+	<h1 class="section-title">Training</h1>
+	<p class="lead">
+		Open source geospatial training run by members of the OSGeo:UK community. Courses are booked
+		with the provider directly — follow the course link for dates, prices and registration.
+	</p>
+
+	{
+		upcoming.length ? (
+			<div class="table-scroll">
+				<table class="training-table">
+					<thead>
+						<tr>
+							<th scope="col">Date</th>
+							<th scope="col">Course</th>
+							<th scope="col">Provider</th>
+							<th scope="col">Location</th>
+							{showCost && <th scope="col">Cost</th>}
+						</tr>
+					</thead>
+					<tbody>
+						{upcoming.map((course) => (
+							<tr>
+								<td class="date-cell">{trainingDates(course)}</td>
+								<td>
+									{course.data.registerUrl ? (
+										<a href={course.data.registerUrl} rel="noopener">
+											{course.data.title}
+										</a>
+									) : (
+										course.data.title
+									)}
+									{course.data.description && (
+										<span class="course-description">{course.data.description}</span>
+									)}
+								</td>
+								<td>{course.data.provider ?? '—'}</td>
+								<td>{course.data.location}</td>
+								{showCost && <td>{course.data.cost ?? '—'}</td>}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		) : (
+			<p>No training courses are scheduled at the moment — check back soon.</p>
+		)
+	}
+
+	{
+		past.length > 0 && (
+			<details class="past">
+				<summary>Past courses ({past.length})</summary>
+				<ul class="past-list">
+					{past.map((course) => (
+						<li>
+							<span class="date-cell">{trainingDates(course)}</span> — {course.data.title}
+							{course.data.provider && <> ({course.data.provider})</>}
+						</li>
+					))}
+				</ul>
+			</details>
+		)
+	}
+
+	<p class="training-cta">
+		Running a course you would like listed here?
+		<a href={`mailto:${CONTACT_EMAIL}`} class="link-more">Get in touch &rarr;</a>
+	</p>
+</BaseLayout>
+
+<style>
+	.lead {
+		font-size: var(--osgeo-text-body-lg);
+		margin-bottom: var(--osgeo-space-6);
+	}
+
+	/* Keeps the table from forcing the page to scroll sideways on narrow screens. */
+	.table-scroll {
+		overflow-x: auto;
+	}
+
+	.training-table {
+		border-collapse: collapse;
+		min-width: 40rem;
+	}
+
+	.training-table th,
+	.training-table td {
+		text-align: left;
+		vertical-align: top;
+		padding: var(--osgeo-space-3);
+		border-bottom: 1px solid var(--osgeo-border);
+	}
+
+	.training-table th {
+		font-weight: var(--osgeo-weight-bold);
+		white-space: nowrap;
+	}
+
+	.date-cell {
+		white-space: nowrap;
+	}
+
+	.course-description {
+		display: block;
+		margin-top: var(--osgeo-space-1);
+		color: var(--osgeo-fg-muted);
+		font-size: var(--osgeo-text-caption);
+	}
+
+	.past {
+		margin-top: var(--osgeo-space-6);
+	}
+
+	.past summary {
+		cursor: pointer;
+		font-weight: var(--osgeo-weight-bold);
+	}
+
+	.past-list {
+		margin-top: var(--osgeo-space-3);
+		color: var(--osgeo-fg-muted);
+	}
+
+	.training-cta {
+		margin-top: var(--osgeo-space-7);
+		padding-top: var(--osgeo-space-5);
+		border-top: 1px solid var(--osgeo-border);
+	}
+</style>
