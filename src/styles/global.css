@@ -433,27 +433,14 @@ input {
 	color: var(--osgeo-accent);
 }
 
-.footer-grid {
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	gap: var(--osgeo-space-5);
+.footer-connect {
 	margin-bottom: var(--osgeo-space-5);
 }
 
-.footer-grid h3 {
+.site-footer h3 {
 	color: var(--osgeo-fg-inverted);
 	font-size: var(--osgeo-text-h3);
 	margin-bottom: var(--osgeo-space-3);
-}
-
-.footer-links {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.footer-links li {
-	margin-bottom: var(--osgeo-space-2);
 }
 
 .footer-bottom {
@@ -484,8 +471,12 @@ input {
 	transition: background var(--osgeo-duration-fast) var(--osgeo-ease);
 }
 
-.social-links a:hover {
+.social-links a:hover,
+.social-links a:focus-visible {
 	background: var(--osgeo-accent);
+	/* Override .site-footer a:hover — the icon uses currentColor and would
+	   otherwise match the accent background and disappear. */
+	color: var(--osgeo-fg-inverted);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════
@@ -541,8 +532,7 @@ main.landing {
    ═════════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-	.two-col,
-	.footer-grid {
+	.two-col {
 		grid-template-columns: 1fr;
 	}
 
