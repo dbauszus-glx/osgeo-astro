@@ -8,9 +8,19 @@ const { date, class: className, ...rest } = Astro.props;
 
 const month = date.toLocaleDateString('en-GB', { month: 'short', timeZone: 'UTC' });
 const day = date.toLocaleDateString('en-GB', { day: 'numeric', timeZone: 'UTC' });
+const year = date.toLocaleDateString('en-GB', { year: 'numeric', timeZone: 'UTC' });
 ---
 
 <div class:list={['osgeo-date-badge', className]} {...rest}>
 	<div>{month}</div>
 	<div><strong>{day}</strong></div>
+	<div class="badge-year">{year}</div>
 </div>
+
+<style>
+	/* Smaller than the month/day so the badge still reads day-first at a glance. */
+	.badge-year {
+		font-size: 0.85em;
+		font-weight: var(--osgeo-weight-normal);
+	}
+</style>

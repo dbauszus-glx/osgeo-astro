@@ -27,8 +27,8 @@ const eventImage = await getImage({ src: shirts, width: 1920, format: 'webp' });
 // The three most recent issues from /newsletter.
 const newsletter = newsletterIssues.slice(0, 3);
 
-// The next three events from /events.
-const events = (await getEvents()).upcoming.slice(0, 3);
+// The next four events from /events.
+const events = (await getEvents()).upcoming.slice(0, 4);
 
 const projects = [
 	{ name: 'QGIS', description: 'Desktop GIS used across UK government, academia and industry.', href: 'https://qgis.org/' },
