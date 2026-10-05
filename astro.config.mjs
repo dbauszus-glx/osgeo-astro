@@ -9,7 +9,19 @@ import { defineConfig } from 'astro/config';
 
 const NEWSLETTER_DIR = new URL('./src/assets/newsletter/', import.meta.url);
 
-const BASE = '/osgeo-astro';
+const BASE = '/';//'/osgeo-astro';
+
+// The old site keeps running and holds the pages for past events.
+const ARCHIVE_SITE = 'https://uk.osgeo.org';
+
+const ARCHIVED_EVENTS = [
+	'/foss4guk2025',
+	'/foss4guk2024',
+	'/foss4guklocal2023',
+	'/foss4guk2022local',
+	'/foss4gukonline2020',
+	'/foss4guk2019',
+];
 
 const MIME_TYPES = {
 	'.html': 'text/html; charset=utf-8',
@@ -72,5 +84,8 @@ export default defineConfig({
 	// The site is served from a project subpath on GitHub Pages. Drop `base`
 	// (and set `site` to the domain) if it ever moves to its own domain.
 	base: BASE,
+	// Static builds emit a meta-refresh page per entry, so only the exact
+	// paths redirect; sub-paths under them are not covered.
+	redirects: Object.fromEntries(ARCHIVED_EVENTS.map((path) => [path, `${ARCHIVE_SITE}${path}`])),
 	integrations: [mdx(), sitemap(), newsletterArchive()],
 });
