@@ -46,7 +46,9 @@ export interface NewsletterIssue {
 export const newsletterIssues: NewsletterIssue[] = [
 	...Object.entries(pages).map(([path, html]) => {
 		const name = path.split('/').pop()!.replace(/\.html$/, '');
-		const date = issueDate(name);
+		// An exact send date in the page wins over the month in the file name.
+		const published = meta(html, 'article:published_time');
+		const date = published ? new Date(published) : issueDate(name);
 
 		return {
 			href: withBase(`/newsletter/${name}.html`),
