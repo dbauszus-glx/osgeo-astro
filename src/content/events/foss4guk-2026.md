@@ -1,6 +1,6 @@
 ---
 title: 'FOSS4G:UK 2026 Leeds'
-description: 'Around 50 talks and workshops over two days at Horizon Leeds. Registration is open.'
+description: 'Around 50 talks and workshops over two days at Horizon Leeds.'
 startDate: '2026-10-12'
 endDate: '2026-10-13'
 location: 'Horizon Leeds'
@@ -36,19 +36,7 @@ We welcome a broad mix of delegates from across the open source geospatial commu
 developers, practitioners, researchers, consultants, public sector teams, students and
 community groups.
 
-## Tickets
-
-Registration is open at [pretix.eu/osgeo-uk/foss4g-uk-2026](https://pretix.eu/osgeo-uk/foss4g-uk-2026/).
-A t-shirt is included with your registration.
-
-- **Full conference (both days)** — £120, on sale until 1 October
-- **Day ticket** — £65 per day
-- **Discounted ticket (both days)** — £20
-
-The discounted rate is for students, people from underrepresented groups, those on low
-incomes or in precarious employment, and anyone for whom the cost or the admin around it is
-a barrier. It's self-defined and no justification is needed — just email
-[osgeouk@gmail.com](mailto:osgeouk@gmail.com) saying which applies to you.
+Check out the [FOSS4G:UK 2026 site for more details](https://uk.osgeo.org/foss4guk2026/).
 
 ## Social evening
 
